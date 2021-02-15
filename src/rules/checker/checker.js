@@ -1,3 +1,4 @@
+import shortid from "shortid";
 import { rules } from "../rules";
 
 const checkString = (text) => {
@@ -11,6 +12,7 @@ const checkString = (text) => {
         name: rule.name,
         type: rule.level,
         fix: rule.fix,
+        id: shortid.generate(),
       });
     }
   });

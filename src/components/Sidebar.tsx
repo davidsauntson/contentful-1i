@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { SidebarExtensionSDK } from "@contentful/app-sdk";
 import { documentToPlainTextString } from "@contentful/rich-text-plain-text-renderer";
+import ReactMarkdown from "react-markdown";
+
 import { checkString } from "../rules/checker/checker.js";
-import { rules } from "../rules/rules.js";
+
+import {
+  List,
+  ListItem,
+  Paragraph,
+} from "@contentful/forma-36-react-components";
 
 interface SidebarProps {
   sdk: SidebarExtensionSDK;
@@ -25,14 +32,28 @@ const Sidebar = (props: SidebarProps) => {
   }, [bodyField]);
 
   const violations = checkString(text);
-  console.log(violations);
 
   return (
-    <ul>
-      {violations.map((v) => (
-        <li>{`${v.name} - ${v.fix}`}</li>
-      ))}
-    </ul>
+    <React.Fragment>
+      {violations && violations.length > 0 ? (
+        <>
+          <Paragraph>
+            There are <b>{violations.length}</b> issues in your content.
+          </Paragraph>
+          <List style={{ marginTop: "12px" }}>
+            {violations.map((v) => {
+              return (
+                <ListItem key={v.id}>
+                  <Paragraph>{`${v.name} - ${v.fix}`}</Paragraph>
+                </ListItem>
+              );
+            })}
+          </List>
+        </>
+      ) : (
+        <Paragraph>Your content looks great! 🎉</Paragraph>
+      )}
+    </React.Fragment>
   );
 };
 
