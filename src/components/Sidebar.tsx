@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { SidebarExtensionSDK } from "@contentful/app-sdk";
 import { documentToPlainTextString } from "@contentful/rich-text-plain-text-renderer";
-import ReactMarkdown from "react-markdown";
 
 import { checkString } from "../rules/checker/checker.js";
 
+import ViolationSidebar from "../features/violations/violationSidebar.jsx";
 import {
-  List,
-  ListItem,
-  Paragraph,
-} from "@contentful/forma-36-react-components";
+  addViolation,
+  clearViolations,
+} from "../features/violations/violationsSlice.js";
 
 interface SidebarProps {
   sdk: SidebarExtensionSDK;
@@ -21,40 +21,19 @@ const Sidebar = (props: SidebarProps) => {
   const { sdk } = props;
 
   const bodyField = sdk.entry.fields[BODY_FIELD_ID];
-  const [text, setText] = useState(bodyField.getValue());
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const detach = bodyField.onValueChanged((value) => {
+      dispatch(clearViolations(null));
       const richText = documentToPlainTextString(value);
-      setText(richText);
+      const violations = checkString(richText);
+      violations.forEach((v) => dispatch(addViolation({ ...v })));
     });
     return () => detach();
   }, [bodyField]);
 
-  const violations = checkString(text);
-
-  return (
-    <React.Fragment>
-      {violations && violations.length > 0 ? (
-        <>
-          <Paragraph>
-            There are <b>{violations.length}</b> issues in your content.
-          </Paragraph>
-          <List style={{ marginTop: "12px" }}>
-            {violations.map((v) => {
-              return (
-                <ListItem key={v.id}>
-                  <Paragraph>{`${v.name} - ${v.fix}`}</Paragraph>
-                </ListItem>
-              );
-            })}
-          </List>
-        </>
-      ) : (
-        <Paragraph>Your content looks great! 🎉</Paragraph>
-      )}
-    </React.Fragment>
-  );
+  return <ViolationSidebar />;
 };
 
 export default Sidebar;
