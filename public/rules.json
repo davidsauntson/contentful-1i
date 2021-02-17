@@ -1,20 +1,22 @@
 [
   {
-    "category": "punctuation",
     "name": "&",
     "fix": "Use 'and' instead",
-    "match": "/&/g"
+    "match": "&"
   },
   {
-    "category": "punctuation",
     "name": "Cannot",
     "fix": "Use 'can't' instead",
-    "match": "/\bcan not\b|\bcannot\b/g"
+    "match": "can not|cannot"
   },
   {
-    "category": "punctuation",
     "name": "Do not",
     "fix": "Use 'don't' instead",
-    "match": "/\bdo not\b/g"
+    "match": "do not"
+  },
+  {
+    "name": "1-10",
+    "fix": "Use the actual digit(s) instead",
+    "match": "\\b1\\b|2|3|4|5|6|7|8|9|\\b10\\b"
   }
 ]
