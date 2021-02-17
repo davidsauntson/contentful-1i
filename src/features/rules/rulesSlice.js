@@ -14,7 +14,6 @@ const rulesSlice = createSlice({
       state.status = "Loading";
     },
     [fetchRules.fulfilled]: (state, action) => {
-      console.log(action);
       state.rules = action.payload;
       state.status = "Success";
     },
@@ -23,7 +22,5 @@ const rulesSlice = createSlice({
     },
   },
 });
-
-console.log(rulesSlice.reducer);
 
 export default rulesSlice.reducer;
