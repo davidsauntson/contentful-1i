@@ -5,15 +5,14 @@ const violationsSlice = createSlice({
   initialState: [],
   reducers: {
     clearViolations: {
-      reducer(state, action) {
-        console.log("cearling");
-        state = [];
+      reducer() {
+        return [];
       },
     },
     addViolation: {
       reducer(state, action) {
-        const { id, name, fix } = action.payload;
-        state.push({ id, name, fix });
+        const violation = action.payload;
+        state.push(violation);
       },
     },
   },
