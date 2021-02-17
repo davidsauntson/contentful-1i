@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 const violationsSlice = createSlice({
   name: "violations",
@@ -12,7 +12,7 @@ const violationsSlice = createSlice({
     addViolation: {
       reducer(state, action) {
         const violation = action.payload;
-        state.push(violation);
+        state.push({ id: nanoid(), ...violation });
       },
     },
   },
