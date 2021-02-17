@@ -36,11 +36,7 @@ const Sidebar = (props) => {
     return () => detach();
   }, [bodyField]);
 
-  return (
-    <React.Fragment>
-      <ViolationSidebarContainer />
-    </React.Fragment>
-  );
+  return <ViolationSidebarContainer />;
 };
 
 export default Sidebar;

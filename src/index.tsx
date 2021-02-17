@@ -45,40 +45,41 @@ if (process.env.NODE_ENV === "development" && window.self === window.top) {
     // Feel free to remove unused locations
     // Dont forget to delete the file too :)
     const ComponentLocationSettings = [
-      // {
-      //   location: locations.LOCATION_APP_CONFIG,
-      //   component: <Config sdk={sdk as AppExtensionSDK} />,
-      // },
-      // {
-      //   location: locations.LOCATION_ENTRY_FIELD,
-      //   component: <Field sdk={sdk as FieldExtensionSDK} />,
-      // },
-      // {
-      //   location: locations.LOCATION_ENTRY_EDITOR,
-      //   component: <EntryEditor sdk={sdk as EditorExtensionSDK} />,
-      // },
-      // {
-      //   location: locations.LOCATION_DIALOG,
-      //   component: <Dialog sdk={sdk as DialogExtensionSDK} />,
-      // },
+      {
+        location: locations.LOCATION_APP_CONFIG,
+        component: <Config sdk={sdk as AppExtensionSDK} />,
+      },
+      {
+        location: locations.LOCATION_ENTRY_FIELD,
+        component: <Field sdk={sdk as FieldExtensionSDK} />,
+      },
+      {
+        location: locations.LOCATION_ENTRY_EDITOR,
+        component: <EntryEditor sdk={sdk as EditorExtensionSDK} />,
+      },
+      {
+        location: locations.LOCATION_DIALOG,
+        component: <Dialog sdk={sdk as DialogExtensionSDK} />,
+      },
       {
         location: locations.LOCATION_ENTRY_SIDEBAR,
-        component: (
-          <Provider store={store}>
-            <Sidebar sdk={sdk as SidebarExtensionSDK} />
-          </Provider>
-        ),
+        component: <Sidebar sdk={sdk as SidebarExtensionSDK} />,
       },
-      // {
-      //   location: locations.LOCATION_PAGE,
-      //   component: <Page sdk={sdk as PageExtensionSDK} />,
-      // },
+      {
+        location: locations.LOCATION_PAGE,
+        component: <Page sdk={sdk as PageExtensionSDK} />,
+      },
     ];
 
     // Select a component depending on a location in which the app is rendered.
     ComponentLocationSettings.forEach((componentLocationSetting) => {
       if (sdk.location.is(componentLocationSetting.location)) {
-        render(componentLocationSetting.component, root);
+        render(
+          <Provider store={store}>
+            {componentLocationSetting.component}
+          </Provider>,
+          root
+        );
       }
     });
   });
