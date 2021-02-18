@@ -33,6 +33,10 @@ const Sidebar = (props) => {
   };
 
   useEffect(() => {
+    sdk.window.startAutoResizer();
+  }, []);
+
+  useEffect(() => {
     const detach = bodyField.onValueChanged((value) => {
       if (status === "Success") {
         worker.postMessage({
