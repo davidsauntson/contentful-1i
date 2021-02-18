@@ -1,3 +1,10 @@
 export default function processContentfulRules(contentfulRules) {
-  return [];
+  const rules = [];
+
+  if (contentfulRules) {
+    contentfulRules.forEach((contentfulRule) =>
+      rules.push(contentfulRule.fields)
+    );
+  }
+  return rules;
 }
