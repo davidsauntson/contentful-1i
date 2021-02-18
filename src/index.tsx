@@ -24,10 +24,11 @@ import Field from "./components/Field";
 import Dialog from "./components/Dialog";
 
 import rootReducer from "./reducers";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 
 import LocalhostWarning from "./components/LocalhostWarning";
 import { configureStore } from "@reduxjs/toolkit";
+import { fetchRules } from "./features/rules/rulesSlice";
 
 if (process.env.NODE_ENV === "development" && window.self === window.top) {
   // You can remove this if block before deploying your app
@@ -40,6 +41,8 @@ if (process.env.NODE_ENV === "development" && window.self === window.top) {
     const store = configureStore({
       reducer: rootReducer,
     });
+
+    store.dispatch(fetchRules());
 
     // All possible locations for your app
     // Feel free to remove unused locations

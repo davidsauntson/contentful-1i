@@ -3,9 +3,11 @@ this.onmessage = function (e) {
   const violations = [];
 
   rules.forEach((rule) => {
-    let match = rule.match.exec(content);
+    const regexp = new RegExp(rule.match, "gi");
+
+    let match = regexp.exec(content);
     while (match !== null) {
-      match = rule.match.exec(content);
+      match = regexp.exec(content);
       violations.unshift({
         name: rule.name,
         type: rule.level,
