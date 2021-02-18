@@ -24,11 +24,11 @@ import Field from "./components/Field";
 import Dialog from "./components/Dialog";
 
 import rootReducer from "./reducers";
-import { Provider, useSelector } from "react-redux";
+import { Provider } from "react-redux";
 
 import LocalhostWarning from "./components/LocalhostWarning";
 import { configureStore } from "@reduxjs/toolkit";
-import { fetchRules } from "./features/rules/rulesSlice";
+import { fetchRules } from "./features/rules/rulesSlice.js";
 
 if (process.env.NODE_ENV === "development" && window.self === window.top) {
   // You can remove this if block before deploying your app
@@ -42,7 +42,8 @@ if (process.env.NODE_ENV === "development" && window.self === window.top) {
       reducer: rootReducer,
     });
 
-    store.dispatch(fetchRules());
+    // @ts-ignore
+    store.dispatch(fetchRules(sdk));
 
     // All possible locations for your app
     // Feel free to remove unused locations
