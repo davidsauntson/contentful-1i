@@ -3,8 +3,7 @@ this.onmessage = function (e) {
   const violations = [];
 
   rules.forEach((rule) => {
-    const regexp = new RegExp(rule.match, "g");
-    console.log(regexp);
+    const regexp = new RegExp(rule.match, "gi");
 
     let match = regexp.exec(content);
     while (match !== null) {
