@@ -1,9 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import processContentfulRules from "./processContentfulRules";
 
-export const fetchRules = createAsyncThunk("rules/fetchRules", async () => {
-  const res = await fetch("rules.json");
-  return res.json();
-});
+export const fetchRules = createAsyncThunk(
+  "rules/fetchRules",
+  async (sdk, thunkAPI) => {
+    return sdk.space.getEntries({ content_type: "styleRule" }).then((res) => {
+      return processContentfulRules(res.items);
+    });
+  }
+);
 
 const rulesSlice = createSlice({
   name: "rules",
